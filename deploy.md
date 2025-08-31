@@ -12,7 +12,7 @@ git commit -m "Initial commit: Spiral Animation Project"
 # 推送到GitHub (或其他Git平台)
 git remote add origin https://github.com/你的用户名/你的仓库名.git
 git push -u origin main
-```
+```git branch
 
 ### 步骤2: Vercel部署
 1. 访问 [vercel.com](https://vercel.com)
