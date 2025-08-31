@@ -1,0 +1,13 @@
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "sk-AJQevU4Jd66PjlhkV1ponoplE9S7PRtVR89eiq9oUQbj4gYw",
+    "ANTHROPIC_BASE_URL": "https://anthropic.cyberclaude.com",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": 32000,
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1
+  },
+  "permissions": {
+    "allow": [],
+    "deny": []
+  },
+  "apiKeyHelper": "echo 'sk-AJQevU4Jd66PjlhkV1ponoplE9S7PRtVR89eiq9oUQbj4gYw'"
+}
