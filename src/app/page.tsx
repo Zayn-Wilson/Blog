@@ -1,40 +1,60 @@
-'use client'
+'use client';
 
-import SpiralDemo from "@/components/demo";
-import { useState } from "react";
-import { EtheralBackground } from "@/components/ui/etheral-background";
+import { useState, useEffect } from 'react';
+import SpiralDemo from '@/components/demo';
+import { HeroSection } from '@/components/sections/hero-section';
+import { SkillsSection } from '@/components/home/skills-section';
+import { FeaturedPosts } from '@/components/sections/featured-posts';
+import { FeaturedProjects } from '@/components/sections/featured-projects';
+import { EtheralShadow } from '@/components/ui/etheral-shadow';
 
-// A placeholder for your future blog content
-const BlogHome = () => {
-  return (
-    <EtheralBackground
-      animation={{ scale: 100, speed: 90 }}
-      noise={{ opacity: 0.5, scale: 1.2 }}
-      sizing="fill"
-    >
-      <div className="w-full h-full flex flex-col items-center justify-center text-white">
-        <h1 className="text-5xl font-bold mb-4">My Blog</h1>
-        <p className="text-lg">This is where the blog posts will go.</p>
-        <p className="mt-4 text-sm text-gray-400">You can start editing your blog content here.</p>
-      </div>
-    </EtheralBackground>
-  );
-};
+export default function HomePage() {
+  const [showContent, setShowContent] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  if (isLoading) {
+  const handleLoadingComplete = () => {
+    setShowContent(true);
+  };
+
+  if (!mounted) {
     return (
-      <main className="relative h-screen w-screen">
-        <SpiralDemo onComplete={() => setIsLoading(false)} />
-      </main>
+      <div className="w-full h-screen flex items-center justify-center bg-black">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!showContent) {
+    return (
+      <div className="fixed inset-0 z-50">
+        <SpiralDemo onComplete={handleLoadingComplete} />
+      </div>
     );
   }
 
   return (
-    <main className="relative h-screen w-screen">
-      <BlogHome />
-    </main>
+    <div className="relative min-h-screen">
+      {/* 背景层 */}
+      <div className="fixed inset-0 z-0">
+        <EtheralShadow
+          color="rgba(128, 128, 128, 1)"
+          animation={{ scale: 100, speed: 90 }}
+          noise={{ opacity: 1, scale: 1.2 }}
+          sizing="fill"
+        />
+      </div>
+      
+      {/* 内容层 */}
+      <div className="relative z-10">
+        <HeroSection />
+        <SkillsSection />
+        <FeaturedPosts />
+        <FeaturedProjects />
+      </div>
+    </div>
   );
 }

@@ -4,73 +4,50 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const skills = [
-  {
-    category: 'AI & Machine Learning',
-    items: ['Python', 'TensorFlow', 'PyTorch', 'OpenCV', 'Scikit-learn', 'Pandas']
-  },
-  {
-    category: 'Robotics',
-    items: ['ROS', 'Arduino', 'Raspberry Pi', 'C++', 'MATLAB', 'Gazebo']
-  },
-  {
-    category: 'Web Development',
-    items: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Tailwind CSS', 'MongoDB']
-  },
-  {
-    category: 'Tools & Others',
-    items: ['Git', 'Docker', 'Linux', 'Jupyter', 'VS Code', 'Figma']
-  }
+  'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
+  'Python', 'TensorFlow', 'PyTorch', 'ROS', 'OpenCV',
+  'Docker', 'Git', 'Linux', 'MongoDB', 'PostgreSQL'
 ];
 
 export function SkillsSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-20 px-6">
+      <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            技术栈
+          <h2 className="text-2xl font-light text-white mb-2">
+            Skills & Technologies
           </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            在AI与机器人领域的学习过程中掌握的技术和工具
+          <p className="text-white/50 text-sm font-light">
+            Tools and technologies I work with
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skills.map((skillGroup, index) => (
-            <motion.div
-              key={skillGroup.category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap gap-3"
+        >
+          {skills.map((skill, index) => (
+            <motion.span
+              key={skill}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
               viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+              className="px-4 py-2 text-sm font-light text-white/60 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 hover:text-white/80 transition-all duration-300"
             >
-              <h3 className="text-2xl font-semibold text-white mb-4">
-                {skillGroup.category}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {skillGroup.items.map((skill, skillIndex) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: (index * 0.1) + (skillIndex * 0.05) }}
-                    viewport={{ once: true }}
-                    className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-600/20 text-white rounded-full text-sm border border-white/20 hover:from-blue-500/30 hover:to-purple-600/30 transition-all duration-300"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
+              {skill}
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
