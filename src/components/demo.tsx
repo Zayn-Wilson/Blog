@@ -3,69 +3,69 @@
 import { SpiralAnimation } from "@/components/ui/spiral-animation"
 import { useState, useEffect } from 'react'
 
-const SpiralDemo = () => {
+const SpiralDemo = ({ onComplete }: { onComplete: () => void }) => {
   const [startVisible, setStartVisible] = useState(false)
   const [mounted, setMounted] = useState(false)
-  
+
   useEffect(() => {
     setMounted(true)
   }, [])
-  
-  // Handle navigation to personal site
-  const navigateToPersonalSite = () => {
-    if (typeof window !== 'undefined') {
-      window.open("https://xubh.top/", '_blank')
+
+  const handleComplete = () => {
+    if (onComplete) {
+      onComplete()
     }
   }
-  
-  // Fade in the start button after animation loads
+
+  // Fade in the start button and listen for Enter key
   useEffect(() => {
     if (!mounted) return
-    
+
     const timer = setTimeout(() => {
       setStartVisible(true)
     }, 2000)
-    
-    return () => clearTimeout(timer)
-  }, [mounted])
-  
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        handleComplete()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [mounted, onComplete])
+
   if (!mounted) {
     return (
-      <div className="fixed inset-0 w-full h-full overflow-hidden bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="w-full h-full flex items-center justify-center bg-black">
+        <div className="text-white">Loading...</div>
       </div>
     )
   }
-  
+
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden bg-black">
-      {/* Spiral Animation */}
-      <div className="absolute inset-0">
-        <SpiralAnimation />
-      </div>
-      
-      {/* Simple Elegant Text Button with Pulsing Effect */}
-      <div 
+    <div className="relative h-full w-full bg-black">
+      <SpiralAnimation />
+      <div
         className={`
           absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10
           transition-all duration-1500 ease-out cursor-pointer
           ${startVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
         `}
+        onClick={handleComplete}
       >
-        <button 
-          onClick={navigateToPersonalSite}
-          className="
-            text-white text-2xl tracking-[0.2em] uppercase font-extralight
-            transition-all duration-700 hover:scale-110
-            hover:tracking-[0.3em] animate-pulse
-            bg-transparent border-none outline-none cursor-pointer
-          "
-        >
-          Enter
-        </button>
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-white tracking-wider [text-shadow:0_0_10px_rgba(255,255,255,0.5)]">
+            START
+          </h1>
+        </div>
       </div>
     </div>
   )
 }
 
-export {SpiralDemo} 
+export default SpiralDemo
